@@ -16,7 +16,7 @@
 --     6. 用戶名稱為 透明人，Email 為 opacity0@hexschooltest.io，Role 為 USER
 INSERT INTO "USER" (name,email,role) VALUES
 ('李燕容','lee2000@hexschooltest.io','USER'),
-('王小明','wXITq@hexschooltest.io','USER'),
+('王小明','wXlTq@hexschooltest.io','USER'),
 ('肌肉棒子','muscle@hexschooltest.io','USER'),
 ('好野人','richman@hexschooltest.io','USER'),
 ('Q太郎','starplatinum@hexschooltest.io','USER'),
@@ -64,8 +64,8 @@ INSERT INTO "CREDIT_PACKAGE" (name,credit_amount,price) VALUES
     -- 2. `王小明` 購買 `21 堂組合包方案`
     -- 3. `好野人` 購買 `14 堂組合包方案`
 INSERT INTO "CREDIT_PURCHASE" (user_id,credit_package_id,purchased_credits,price_paid) VALUES
-((SELECT id FROM "USER" WHERE email = 'wXITq@hexschooltest.io'),(SELECT id FROM "CREDIT_PACKAGE" WHERE name = '14 堂組合包方案'), (SELECT credit_amount FROM "CREDIT_PACKAGE" WHERE name = '14 堂組合包方案'), (SELECT price FROM "CREDIT_PACKAGE" WHERE name = '14 堂組合包方案')),
-((SELECT id FROM "USER" WHERE email = 'wXITq@hexschooltest.io'),(SELECT id FROM "CREDIT_PACKAGE" WHERE name = '21 堂組合包方案'), (SELECT credit_amount FROM "CREDIT_PACKAGE" WHERE name = '21 堂組合包方案'), (SELECT price FROM "CREDIT_PACKAGE" WHERE name = '21 堂組合包方案')),
+((SELECT id FROM "USER" WHERE email = 'wXlTq@hexschooltest.io'),(SELECT id FROM "CREDIT_PACKAGE" WHERE name = '14 堂組合包方案'), (SELECT credit_amount FROM "CREDIT_PACKAGE" WHERE name = '14 堂組合包方案'), (SELECT price FROM "CREDIT_PACKAGE" WHERE name = '14 堂組合包方案')),
+((SELECT id FROM "USER" WHERE email = 'wXlTq@hexschooltest.io'),(SELECT id FROM "CREDIT_PACKAGE" WHERE name = '21 堂組合包方案'), (SELECT credit_amount FROM "CREDIT_PACKAGE" WHERE name = '21 堂組合包方案'), (SELECT price FROM "CREDIT_PACKAGE" WHERE name = '21 堂組合包方案')),
 ((SELECT id FROM "USER" WHERE email='richman@hexschooltest.io'),(SELECT id FROM "CREDIT_PACKAGE" WHERE name = '14 堂組合包方案'),( SELECT credit_amount FROM "CREDIT_PACKAGE" WHERE name = '14 堂組合包方案'),( SELECT price FROM "CREDIT_PACKAGE" WHERE name = '14 堂組合包方案'));
 
 
@@ -153,44 +153,44 @@ INSERT INTO "COURSE" (user_id,skill_id,name,start_at,end_at,max_participants,mee
         -- 2. 預約時間`booking_at` 設為2024-11-24 16:00:00
         -- 3. 狀態`status` 設定為即將授課
  INSERT INTO "COURSE_BOOKING" (user_id,course_id,booking_at,status) VALUES
-((SELECT id FROM "USER" WHERE email ='wXITq@hexschooltest.io'),(SELECT id FROM "COURSE" WHERE user_id = (SELECT id FROM "USER" WHERE email = 'lee2000@hexschooltest.io')),'2024-11-24 16:00:00','即將授課'),((SELECT id FROM "USER" WHERE email ='richman@hexschooltest.io'),(SELECT id FROM "COURSE" WHERE user_id = (SELECT id FROM "USER" WHERE email = 'lee2000@hexschooltest.io')),'2024-11-24 16:00:00','即將授課');
+((SELECT id FROM "USER" WHERE email ='wXlTq@hexschooltest.io'),(SELECT id FROM "COURSE" WHERE user_id = (SELECT id FROM "USER" WHERE email = 'lee2000@hexschooltest.io')),'2024-11-24 16:00:00','即將授課'),((SELECT id FROM "USER" WHERE email ='richman@hexschooltest.io'),(SELECT id FROM "COURSE" WHERE user_id = (SELECT id FROM "USER" WHERE email = 'lee2000@hexschooltest.io')),'2024-11-24 16:00:00','即將授課');
 -- 5-2. 修改：`王小明`取消預約 `李燕容` 的課程，請在`COURSE_BOOKING`更新該筆預約資料：
     -- 1. 取消預約時間`cancelled_at` 設為2024-11-24 17:00:00
     -- 2. 狀態`status` 設定為課程已取消
 UPDATE "COURSE_BOOKING"
 SET cancelled_at ='2024-11-24 17:00:00',status='課程已取消'
-WHERE user_id = (SELECT id FROM "USER" WHERE email='wXITq@hexschooltest.io') AND course_id = (SELECT id FROM "COURSE" WHERE user_id = (SELECT id FROM "USER" WHERE  email='lee2000@hexschooltest.io'));
+WHERE user_id = (SELECT id FROM "USER" WHERE email='wXlTq@hexschooltest.io') AND course_id = (SELECT id FROM "COURSE" WHERE user_id = (SELECT id FROM "USER" WHERE  email='lee2000@hexschooltest.io'));
 
 -- 5-3. 新增：`王小明`再次預約 `李燕容`   的課程，請在`COURSE_BOOKING`新增一筆資料：
     -- 1. 預約人設為`王小明`
     -- 2. 預約時間`booking_at` 設為2024-11-24 17:10:25
     -- 3. 狀態`status` 設定為即將授課
 INSERT INTO "COURSE_BOOKING" (user_id,course_id,booking_at,status) VALUES
-((SELECT id FROM "USER" WHERE email = 'wXITq@hexschooltest.io'),(SELECT id FROM "COURSE" WHERE user_id =(SELECT id FROM "USER" WHERE email = 'lee2000@hexschooltest.io')),'2024-11-24 17:10:25','即將授課');
+((SELECT id FROM "USER" WHERE email = 'wXlTq@hexschooltest.io'),(SELECT id FROM "COURSE" WHERE user_id =(SELECT id FROM "USER" WHERE email = 'lee2000@hexschooltest.io')),'2024-11-24 17:10:25','即將授課');
 
 
 
 -- 5-4. 查詢：取得王小明所有的預約紀錄，包含取消預約的紀錄
 
-SELECT * FROM "COURSE_BOOKING" WHERE user_id = (SELECT id FROM "USER" WHERE email = 'wXITq@hexschooltest.io');
+SELECT * FROM "COURSE_BOOKING" WHERE user_id = (SELECT id FROM "USER" WHERE email = 'wXlTq@hexschooltest.io');
 
 -- 5-5. 修改：`王小明` 現在已經加入直播室了，請在`COURSE_BOOKING`更新該筆預約資料（請注意，不要更新到已經取消的紀錄）：
     -- 1. 請在該筆預約記錄他的加入直播室時間 `join_at` 設為2024-11-25 14:01:59
     -- 2. 狀態`status` 設定為上課中
 UPDATE "COURSE_BOOKING"
 SET join_at='2024-11-25 14:01:59',status='上課中'
-WHERE user_id = (SELECT id FROM "USER" WHERE email = 'wXITq@hexschooltest.io') AND course_id = (SELECT id FROM "COURSE" WHERE user_id =(SELECT id FROM "USER" WHERE email = 'lee2000@hexschooltest.io')) AND status='即將授課';
+WHERE user_id = (SELECT id FROM "USER" WHERE email = 'wXlTq@hexschooltest.io') AND course_id = (SELECT id FROM "COURSE" WHERE user_id =(SELECT id FROM "USER" WHERE email = 'lee2000@hexschooltest.io')) AND status='即將授課';
 -- 5-6. 查詢：計算用戶王小明的購買堂數，顯示須包含以下欄位： user_id , total。 (需使用到 SUM 函式與 Group By)
 SELECT user_id,SUM(purchased_credits) total 
 FROM "CREDIT_PURCHASE"
-WHERE user_id = (SELECT id FROM "USER" WHERE email = 'wXITq@hexschooltest.io')
+WHERE user_id = (SELECT id FROM "USER" WHERE email = 'wXlTq@hexschooltest.io')
 GROUP BY user_id;
 
 
 -- 5-7. 查詢：計算用戶王小明的已使用堂數，顯示須包含以下欄位： user_id , total。 (需使用到 Count 函式與 Group By)
 SELECT user_id,COUNT(*) total
 FROM "COURSE_BOOKING"
-WHERE user_id =  (SELECT id FROM "USER" WHERE email = 'wXITq@hexschooltest.io') AND status IN ('上課中','完成')
+WHERE user_id =  (SELECT id FROM "USER" WHERE email = 'wXlTq@hexschooltest.io') AND status IN ('上課中','完成')
 GROUP BY user_id;
 
 
@@ -203,12 +203,12 @@ GROUP BY user_id;
 select "CREDIT_PURCHASE".user_id ,("CREDIT_PURCHASE".total_credit - "COURSE_BOOKING".used_credit) as remaining_credit
 from (SELECT user_id,SUM(purchased_credits) total_credit 
 FROM "CREDIT_PURCHASE"
-WHERE user_id = (SELECT id FROM "USER" WHERE email = 'wXITq@hexschooltest.io')
+WHERE user_id = (SELECT id FROM "USER" WHERE email = 'wXlTq@hexschooltest.io')
 GROUP BY user_id
 ) as "CREDIT_PURCHASE"
 inner join (SELECT user_id,COUNT(*) used_credit
 FROM "COURSE_BOOKING"
-WHERE user_id =  (SELECT id FROM "USER" WHERE email = 'wXITq@hexschooltest.io') AND status != '課程已取消'
+WHERE user_id =  (SELECT id FROM "USER" WHERE email = 'wXlTq@hexschooltest.io') AND status != '課程已取消'
 GROUP BY user_id) as "COURSE_BOOKING"
 on "COURSE_BOOKING".user_id = "CREDIT_PURCHASE".user_id;
 
